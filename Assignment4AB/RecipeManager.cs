@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Assignment_AB
+﻿namespace Assignment_AB
 {
     internal class RecipeManager
     {
@@ -35,23 +33,37 @@ namespace Assignment_AB
 
         public Recipe GetRecipe(int index)
         {
-            if (index >= 0 && index < _numOfElems)
+            try
             {
-                return _recipes[index] ?? throw new Exception("No recipe at this index");
+                if (index >= 0 && index < _numOfElems)
+                {
+                    return _recipes[index] ?? throw new Exception("No recipe at this index");
+                }
+                throw new IndexOutOfRangeException("Index is out of range");
             }
-            throw new IndexOutOfRangeException("Index is out of range");
+            catch (Exception ex)
+            {
+                throw new Exception($"Error while retrieving recipe: {ex.Message}", ex);
+            }
         }
 
         public bool RemoveRecipe(int index)
         {
-            if (index >= 0 && index < _numOfElems)
+            try
             {
-                _recipes[index] = null;
-                _numOfElems--;
-                MoveElementsOneStepToLeft(index);
-                return true;
+                if (index >= 0 && index < _numOfElems)
+                {
+                    _recipes[index] = null;
+                    _numOfElems--;
+                    MoveElementsOneStepToLeft(index);
+                    return true;
+                }
+                return false;
             }
-            return false;
+            catch (Exception ex)
+            {
+                throw new Exception($"Error while removing recipe: {ex.Message}", ex);
+            }
         }
 
         private void MoveElementsOneStepToLeft(int index)

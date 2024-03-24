@@ -1,6 +1,4 @@
-using System;
-using System.Linq;
-using System.Windows.Forms;
+
 
 namespace Assignment_AB
 {
@@ -59,34 +57,42 @@ namespace Assignment_AB
 
         private void btnEditFinish_Click(object sender, EventArgs e)
         {
-            int index = lbIngredients.SelectedIndex;
-            if (index != -1 && currentRecipe != null)
+            try
             {
-                if (!string.IsNullOrEmpty(txtBoxNameOfRecipe.Text))
+                int index = lbIngredients.SelectedIndex;
+                if (index != -1 && currentRecipe != null)
                 {
-                    // Update the current recipe with the edited details
-                    currentRecipe.Name = txtBoxNameOfRecipe.Text;
-                    currentRecipe.Instructions = richTxtBoxInstructions.Text;
-                    currentRecipe.Category = (FoodCategory)comboBoxCategory.SelectedItem;
-                    recipeManager.EditRecipe(index, currentRecipe);
+                    if (!string.IsNullOrEmpty(txtBoxNameOfRecipe.Text))
+                    {
+                        // Update the current recipe with the edited details
+                        currentRecipe.Name = txtBoxNameOfRecipe.Text;
+                        currentRecipe.Instructions = richTxtBoxInstructions.Text;
+                        currentRecipe.Category = (FoodCategory)comboBoxCategory.SelectedItem;
+                        recipeManager.EditRecipe(index, currentRecipe);
 
-                    // Reset currentRecipe
-                    currentRecipe = new Recipe(MaxIngredients);
+                        // Reset currentRecipe
+                        currentRecipe = new Recipe(MaxIngredients);
 
-                    // Clear input fields
-                    txtBoxNameOfRecipe.Clear();
-                    richTxtBoxInstructions.Clear();
-                    comboBoxCategory.SelectedIndex = -1;
+                        // Clear input fields
+                        txtBoxNameOfRecipe.Clear();
+                        richTxtBoxInstructions.Clear();
+                        comboBoxCategory.SelectedIndex = -1;
 
-                    // Update the UI
-                    UpdateFormMainUI();
-                }
-                else
-                {
-                    MessageBox.Show("Recipe name cannot be null or empty.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        // Update the UI
+                        UpdateFormMainUI();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Recipe name cannot be null or empty.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
+
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
@@ -123,22 +129,29 @@ namespace Assignment_AB
         // Event handler for double-clicking on an item in lbIngredients ListBox
         private void lbIngredients_DoubleClick(object sender, EventArgs e)
         {
-            int index = lbIngredients.SelectedIndex;
-            if (index != -1)
+            try
             {
-                Recipe recipe = recipeManager.GetRecipe(index);
+                int index = lbIngredients.SelectedIndex;
+                if (index != -1)
+                {
+                    Recipe recipe = recipeManager.GetRecipe(index);
 
-                // Get the detailed information for the recipe
-                string name = recipe.Name;
-                string category = recipe.Category.ToString();
-                string ingredients = string.Join(", ", recipe.GetIngredients().Where(i => i != null));
-                string instructions = recipe.Instructions;
+                    // Get the detailed information for the recipe
+                    string name = recipe.Name;
+                    string category = recipe.Category.ToString();
+                    string ingredients = string.Join(", ", recipe.GetIngredients().Where(i => i != null));
+                    string instructions = recipe.Instructions;
 
-                // Create the message to display
-                string message = $"Name: {name}\nCategory: {category}\nIngredients: {ingredients}\nInstructions: {instructions}";
+                    // Create the message to display
+                    string message = $"Name: {name}\nCategory: {category}\nIngredients: {ingredients}\nInstructions: {instructions}";
 
-                // Show the complete recipe information in a MessageBox
-                MessageBox.Show(message, "Recipe Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    // Show the complete recipe information in a MessageBox
+                    MessageBox.Show(message, "Recipe Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

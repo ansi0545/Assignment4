@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Windows.Forms;
+﻿
 
 namespace Assignment_AB
 {
@@ -38,15 +36,23 @@ namespace Assignment_AB
 
         public void AddIngredient(string ingredient)
         {
-            for (int i = 0; i < _maxIngredients; i++)
+            try
             {
-                if (_ingredients[i] == null)
+                for (int i = 0; i < _maxIngredients; i++)
                 {
-                    _ingredients[i] = ingredient;
-                    break;
+                    if (_ingredients[i] == null)
+                    {
+                        _ingredients[i] = ingredient;
+                        break;
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error while adding ingredient: {ex.Message}", ex);
+            }
         }
+
 
         public void ChangeIngredient(int index, string newIngredient)
         {
