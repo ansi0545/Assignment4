@@ -120,15 +120,28 @@ namespace Assignment_AB
             comboBoxCategory.DataSource = Enum.GetValues(typeof(FoodCategory));
         }
 
+        // Event handler for double-clicking on an item in lbIngredients ListBox
         private void lbIngredients_DoubleClick(object sender, EventArgs e)
         {
             int index = lbIngredients.SelectedIndex;
             if (index != -1)
             {
                 Recipe recipe = recipeManager.GetRecipe(index);
-                MessageBox.Show($"Ingredients: {string.Join(", ", recipe.GetIngredients().Where(i => i != null))}\nDescription: {recipe.Instructions}");
+
+                // Get the detailed information for the recipe
+                string name = recipe.Name;
+                string category = recipe.Category.ToString();
+                string ingredients = string.Join(", ", recipe.GetIngredients().Where(i => i != null));
+                string instructions = recipe.Instructions;
+
+                // Create the message to display
+                string message = $"Name: {name}\nCategory: {category}\nIngredients: {ingredients}\nInstructions: {instructions}";
+
+                // Show the complete recipe information in a MessageBox
+                MessageBox.Show(message, "Recipe Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
+
 
         private void btnClearSelection_Click(object sender, EventArgs e)
         {

@@ -89,7 +89,6 @@
             richTxtBoxInstructions.Size = new Size(716, 436);
             richTxtBoxInstructions.TabIndex = 2;
             richTxtBoxInstructions.Text = "";
-            //richTxtBoxInstructions.TextChanged += richTxtBoxInstructions_TextChanged;
             // 
             // lblCategory
             // 
@@ -106,7 +105,6 @@
             txtBoxNameOfRecipe.Name = "txtBoxNameOfRecipe";
             txtBoxNameOfRecipe.Size = new Size(541, 31);
             txtBoxNameOfRecipe.TabIndex = 4;
-            //txtBoxNameOfRecipe.TextChanged += txtBoxNameOfRecipe_TextChanged;
             // 
             // lblNameOfRecipe
             // 
@@ -123,7 +121,6 @@
             comboBoxCategory.Name = "comboBoxCategory";
             comboBoxCategory.Size = new Size(452, 33);
             comboBoxCategory.TabIndex = 6;
-            //comboBoxCategory.SelectedIndexChanged += comboBoxCategory_SelectedIndexChanged;
             // 
             // lblName
             // 
@@ -200,6 +197,7 @@
             lbIngredients.Name = "lbIngredients";
             lbIngredients.Size = new Size(556, 554);
             lbIngredients.TabIndex = 7;
+            lbIngredients.DoubleClick += lbIngredients_DoubleClick;
             // 
             // FormMain
             // 

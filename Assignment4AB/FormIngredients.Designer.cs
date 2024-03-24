@@ -94,7 +94,7 @@ namespace Assignment_AB
             txtBoxAddIngredients.Name = "txtBoxAddIngredients";
             txtBoxAddIngredients.Size = new Size(567, 31);
             txtBoxAddIngredients.TabIndex = 0;
-            txtBoxAddIngredients.TextChanged += textBox1_TextChanged;
+            //txtBoxAddIngredients.TextChanged += textBox1_TextChanged;
             // 
             // lbFormIngredients
             // 

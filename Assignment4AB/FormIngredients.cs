@@ -37,6 +37,9 @@ namespace Assignment_AB
             {
                 _recipe.AddIngredient(txtBoxAddIngredients.Text);
                 UpdateGUI();
+
+                // Clear the TextBox after adding the ingredient
+                txtBoxAddIngredients.Clear();
             }
         }
 
@@ -94,7 +97,7 @@ namespace Assignment_AB
         }
 
         // Event handler for the text box change
-        private void textBox1_TextChanged(object sender, EventArgs e)
+        private void txtBoxAddIngredients_TextChanged(object sender, EventArgs e)
         {
             bool isItemSelected = lbFormIngredients.SelectedIndex != -1;
             btnEdit.Enabled = isItemSelected;
@@ -104,7 +107,12 @@ namespace Assignment_AB
         // Event handler for the selected index change in the list box
         private void lbFormIngredients_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            int selectedIndex = lbFormIngredients.SelectedIndex;
+            if (selectedIndex != -1)
+            {
+                // Populate the text box with the selected ingredient
+                txtBoxAddIngredients.Text = lbFormIngredients.SelectedItem.ToString();
+            }
         }
     }
 }
