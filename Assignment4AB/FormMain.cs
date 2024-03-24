@@ -18,27 +18,35 @@ namespace Assignment_AB
 
         private void btnAddRecipe_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(txtBoxNameOfRecipe.Text))
+            try
             {
-                currentRecipe.Name = txtBoxNameOfRecipe.Text;
-                currentRecipe.Instructions = richTxtBoxInstructions.Text;
-                currentRecipe.Category = (FoodCategory)comboBoxCategory.SelectedItem;
-                recipeManager.AddRecipe(currentRecipe);
-                currentRecipe = new Recipe(MaxIngredients); // Reset currentRecipe
+                if (!string.IsNullOrEmpty(txtBoxNameOfRecipe.Text))
+                {
+                    currentRecipe.Name = txtBoxNameOfRecipe.Text;
+                    currentRecipe.Instructions = richTxtBoxInstructions.Text; // Potential ArgumentNullException may occur here
+                    currentRecipe.Category = (FoodCategory)comboBoxCategory.SelectedItem;
+                    recipeManager.AddRecipe(currentRecipe);
+                    currentRecipe = new Recipe(MaxIngredients); // Reset currentRecipe
 
-                // Clear input fields
-                txtBoxNameOfRecipe.Clear();
-                richTxtBoxInstructions.Clear();
-                comboBoxCategory.SelectedIndex = -1;
+                    // Clear input fields
+                    txtBoxNameOfRecipe.Clear();
+                    richTxtBoxInstructions.Clear();
+                    comboBoxCategory.SelectedIndex = -1;
 
-                // Update the UI
-                UpdateFormMainUI();
+                    // Update the UI
+                    UpdateFormMainUI();
+                }
+                else
+                {
+                    MessageBox.Show("Recipe name cannot be null or empty.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
-            else
+            catch (ArgumentNullException ex)
             {
-                MessageBox.Show("Recipe name cannot be null or empty.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
 
         private void btnEditBegin_Click(object sender, EventArgs e)
         {
@@ -115,7 +123,8 @@ namespace Assignment_AB
             {
                 if (recipe != null)
                 {
-                    lbIngredients.Items.Add($"{recipe.Name}, {recipe.Category}, {recipe.GetIngredients().Count(i => i != null)}");
+                    string formattedRecipe = string.Format("{0,-30} {1,-4} {2, 35}", recipe.Name, recipe.Category, recipe.GetIngredients().Count(i => i != null));
+                    lbIngredients.Items.Add(formattedRecipe);
                 }
             }
         }
