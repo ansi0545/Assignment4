@@ -1,0 +1,17 @@
+C:\source\repos\c#\Assignment4AB\obj\Debug\net8.0-windows\Assignment_AB.FormIngredients.resources
+C:\source\repos\c#\Assignment4AB\obj\Debug\net8.0-windows\Assignment_AB.FormMain.resources
+C:\source\repos\c#\Assignment4AB\obj\Debug\net8.0-windows\Assignment4AB.csproj.GenerateResource.cache
+C:\source\repos\c#\Assignment4AB\obj\Debug\net8.0-windows\Assignment4AB.GeneratedMSBuildEditorConfig.editorconfig
+C:\source\repos\c#\Assignment4AB\obj\Debug\net8.0-windows\Assignment4AB.AssemblyInfoInputs.cache
+C:\source\repos\c#\Assignment4AB\obj\Debug\net8.0-windows\Assignment4AB.AssemblyInfo.cs
+C:\source\repos\c#\Assignment4AB\obj\Debug\net8.0-windows\Assignment4AB.csproj.CoreCompileInputs.cache
+C:\source\repos\c#\Assignment4AB\bin\Debug\net8.0-windows\Assignment4AB.exe
+C:\source\repos\c#\Assignment4AB\bin\Debug\net8.0-windows\Assignment4AB.deps.json
+C:\source\repos\c#\Assignment4AB\bin\Debug\net8.0-windows\Assignment4AB.runtimeconfig.json
+C:\source\repos\c#\Assignment4AB\bin\Debug\net8.0-windows\Assignment4AB.dll
+C:\source\repos\c#\Assignment4AB\bin\Debug\net8.0-windows\Assignment4AB.pdb
+C:\source\repos\c#\Assignment4AB\obj\Debug\net8.0-windows\Assignment4AB.dll
+C:\source\repos\c#\Assignment4AB\obj\Debug\net8.0-windows\refint\Assignment4AB.dll
+C:\source\repos\c#\Assignment4AB\obj\Debug\net8.0-windows\Assignment4AB.pdb
+C:\source\repos\c#\Assignment4AB\obj\Debug\net8.0-windows\Assignment4AB.genruntimeconfig.cache
+C:\source\repos\c#\Assignment4AB\obj\Debug\net8.0-windows\ref\Assignment4AB.dll
