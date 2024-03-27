@@ -123,7 +123,7 @@ namespace Assignment_AB
             {
                 if (recipe != null)
                 {
-                    string formattedRecipe = string.Format("{0,-15} {1,-9} {2, 20}", recipe.Name, recipe.Category, recipe.GetIngredients().Count(i => i != null));
+                    string formattedRecipe = string.Format("{0,-5} {1, 20} {2, 35}", recipe.Name, recipe.Category, recipe.GetIngredients().Count(i => i != null));
                     lbIngredients.Items.Add(formattedRecipe);
                 }
             }
