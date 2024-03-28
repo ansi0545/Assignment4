@@ -30,7 +30,12 @@ namespace Assignment_AB
         }
 
         
+        /// <summary>
+        /// Gets and returns the updated recipe.
+        /// </summary>
         public Recipe UpdatedRecipe => _recipe;
+
+        
         private void btnCancel_Click(object sender, EventArgs e)
         {
             Close();
