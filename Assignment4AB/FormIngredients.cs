@@ -7,8 +7,10 @@ namespace Assignment_AB
     internal partial class FormIngredients : Form
     {
         private Recipe _recipe;
-        private bool isDoubleClick = false;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FormIngredients"/> class.
+        /// </summary>
         public FormIngredients()
         {
             InitializeComponent();
@@ -16,6 +18,10 @@ namespace Assignment_AB
             lbFormIngredients.DoubleClick += lbFormIngredients_DoubleClick; // Add the event handler
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FormIngredients"/> class.
+        /// </summary>
+        /// <param name="recipe">The recipe object to be passed to the form.</param>
         public FormIngredients(Recipe recipe)
         {
             InitializeComponent();
@@ -23,16 +29,20 @@ namespace Assignment_AB
             UpdateGUI();
         }
 
-        // Property to access the updated recipe from FormMain
+        
         public Recipe UpdatedRecipe => _recipe;
-
-        // Event handler for the Cancel button
         private void btnCancel_Click(object sender, EventArgs e)
         {
             Close();
         }
 
-        // Event handler for the Add button
+       
+        /// <summary>
+        /// Event handler for the "Add" button click event.
+        /// Adds the ingredient from the text box to the recipe and updates the GUI.
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event arguments.</param>
         private void btnAdd_Click(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(txtBoxAddIngredients.Text))
@@ -40,12 +50,18 @@ namespace Assignment_AB
                 _recipe.AddIngredient(txtBoxAddIngredients.Text);
                 UpdateGUI();
 
-                // Clear the TextBox after adding the ingredient
+              
                 txtBoxAddIngredients.Clear();
             }
         }
 
-        // Event handler for the Delete button
+        
+        /// <summary>
+        /// Event handler for the delete button click event.
+        /// Removes the selected ingredient from the recipe and updates the GUI.
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event arguments.</param>
         private void btnDelete_Click(object sender, EventArgs e)
         {
             int selectedIndex = lbFormIngredients.SelectedIndex;
@@ -56,7 +72,12 @@ namespace Assignment_AB
             }
         }
 
-        // Event handler for the Edit button
+       
+        /// <summary>
+        /// Event handler for the "Edit" button click event.
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event arguments.</param>
         private void btnEdit_Click(object sender, EventArgs e)
         {
             int selectedIndex = lbFormIngredients.SelectedIndex;
@@ -68,14 +89,23 @@ namespace Assignment_AB
             }
         }
 
-        // Event handler for the OK button
+        
+        /// <summary>
+        /// Event handler for the click event of the 'Ok' button.
+        /// Sets the DialogResult to OK and closes the form.
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event arguments.</param>
         private void btnOk_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.OK;
             Close();
         }
 
-        // Update the GUI with ingredients from the Recipe object
+        
+        /// <summary>
+        /// Updates the graphical user interface (GUI) with the ingredients of the recipe.
+        /// </summary>
         private void UpdateGUI()
         {
             lbFormIngredients.Items.Clear();
@@ -86,24 +116,41 @@ namespace Assignment_AB
             }
         }
 
-        // Load event handler for the FormIngredients form
+       
+        /// <summary>
+        /// Event handler for the FormIngredients Load event.
+        /// </summary>
+        /// <param name="sender">The object that triggered the event.</param>
+        /// <param name="e">The event arguments.</param>
         private void FormIngredients_Load(object sender, EventArgs e)
         {
             UpdateGUI();
             btnEdit.Enabled = false; // Disable the Edit button initially
 
-            // Add click event handler to the ListBox and groupBoxFormIngredients
+           
             lbFormIngredients.Click += lbFormIngredients_Click;
             groupBoxFormIngredients.MouseDown += groupBoxFormIngredients_MouseDown;
         }
 
-        // Event handler for the rich text box ingredient change
+       
+        /// <summary>
+        /// Event handler for the TextChanged event of the richTxtBoxIngredient control.
+        /// Enables or disables the btnAdd button based on whether the txtBoxAddIngredients is empty or not.
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">An EventArgs that contains the event data.</param>
         private void richTxtBoxIngredient_TextChanged(object sender, EventArgs e)
         {
             btnAdd.Enabled = !string.IsNullOrEmpty(txtBoxAddIngredients.Text);
         }
 
-        // Event handler for the text box change
+       
+        /// <summary>
+        /// Event handler for the TextChanged event of the txtBoxAddIngredients TextBox.
+        /// Updates the state of the btnEdit button based on the selected item in the ListBox and the text in the TextBox.
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">An EventArgs that contains the event data.</param>
         private void txtBoxAddIngredients_TextChanged(object sender, EventArgs e)
         {
             bool isItemSelected = lbFormIngredients.SelectedIndex != -1;
@@ -114,7 +161,13 @@ namespace Assignment_AB
         }
 
 
-        // Double-click event handler for the ListBox
+       
+        /// <summary>
+        /// Event handler for the DoubleClick event of the lbFormIngredients ListBox.
+        /// Populates the text box with the selected ingredient and enables the Edit button.
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">An EventArgs object that contains the event data.</param>
         private void lbFormIngredients_DoubleClick(object sender, EventArgs e)
         {
             int selectedIndex = lbFormIngredients.SelectedIndex;
@@ -125,40 +178,57 @@ namespace Assignment_AB
             }
         }
 
+        /// <summary>
+        /// Event handler for the click event of the FormIngredients button.
+        /// </summary>
+        /// <param name="sender">The object that triggered the event.</param>
+        /// <param name="e">The event arguments.</param>
         private void FormIngredients_Click(object sender, EventArgs e)
         {
-            // Disable the Edit button when the user clicks outside the ListBox
-            // Enable the Edit button when the user clicks inside the ListBox
             btnEdit.Enabled = lbFormIngredients.SelectedIndex != -1;
         }
 
+        /// <summary>
+        /// Event handler for the MouseDown event of the groupBoxFormIngredients control.
+        /// Disables the btnEdit button.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">A MouseEventArgs that contains the event data.</param>
         private void groupBoxFormIngredients_MouseDown(object sender, MouseEventArgs e)
         {
-            // Disable the Edit button when the user clicks inside the groupBoxFormIngredients
             btnEdit.Enabled = false;
         }
 
-        // Event handler for the ListBox's click event
+       
+        /// <summary>
+        /// Event handler for the lbFormIngredients Click event.
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event arguments.</param>
         private void lbFormIngredients_Click(object sender, EventArgs e)
         {
-            // Enable the Edit button when the user clicks inside the ListBox
             btnEdit.Enabled = lbFormIngredients.SelectedIndex != -1;
         }
 
-        // Event handler for the selected index change in the list box
+        /// <summary>
+        /// Event handler for the lbFormIngredients.SelectedIndexChanged event.
+        /// Updates the text of txtBoxAddIngredients with the selected item from lbFormIngredients,
+        /// and enables the btnEdit button if an item is selected.
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event arguments.</param>
         private void lbFormIngredients_SelectedIndexChanged(object sender, EventArgs e)
         {
             int selectedIndex = lbFormIngredients.SelectedIndex;
             if (selectedIndex != -1)
             {
-                // Populate the text box with the selected ingredient
                 txtBoxAddIngredients.Text = lbFormIngredients.SelectedItem.ToString();
-                btnEdit.Enabled = true; // Enable the Edit button when an item is selected in the ListBox
+                btnEdit.Enabled = true;
             }
             else
             {
-                txtBoxAddIngredients.Clear(); // Clear the text box when no item is selected
-                btnEdit.Enabled = false; // Disable the Edit button when no item is selected
+                txtBoxAddIngredients.Clear();
+                btnEdit.Enabled = false;
             }
         }
     }
