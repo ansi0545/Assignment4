@@ -4,8 +4,8 @@ namespace Assignment_AB
 {
     public partial class FormMain : Form
     {
-        private const int MaxRecipes = 2;
-        private const int MaxIngredients = 2;
+        private const int MaxRecipes = 200;
+        private const int MaxIngredients = 50;
         private RecipeManager recipeManager;
         private Recipe currentRecipe;
 
@@ -115,36 +115,24 @@ namespace Assignment_AB
             }
         }
 
-        
+
+        /// <summary>
+        /// Event handler for the "Edit Finish" button click event.
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event arguments.</param>
         private void btnEditFinish_Click(object sender, EventArgs e)
         {
+
             try
             {
                 int index = lbIngredients.SelectedIndex;
                 if (index != -1 && currentRecipe != null)
                 {
-                    if (!string.IsNullOrEmpty(txtBoxNameOfRecipe.Text))
+                    if (ValidateInput())
                     {
-                        // Update the current recipe with the edited details
-                        currentRecipe.Name = txtBoxNameOfRecipe.Text;
-                        currentRecipe.Instructions = richTxtBoxInstructions.Text;
-                        currentRecipe.Category = (FoodCategory)comboBoxCategory.SelectedItem;
-                        recipeManager.EditRecipe(index, currentRecipe);
-
-                        // Reset currentRecipe
-                        currentRecipe = new Recipe(MaxIngredients);
-
-                        // Clear input fields
-                        txtBoxNameOfRecipe.Clear();
-                        richTxtBoxInstructions.Clear();
-                        comboBoxCategory.SelectedIndex = -1;
-
-                        // Update the UI
-                        UpdateFormMainUI();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Recipe name cannot be null or empty.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        EditRecipe(index);
+                        UpdateUI();
                     }
                 }
             }
@@ -153,6 +141,21 @@ namespace Assignment_AB
                 MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        /// <summary>
+        /// Edits the recipe at the specified index with the values from the input fields.
+        /// </summary>
+        /// <param name="index">The index of the recipe to edit.</param>
+        private void EditRecipe(int index)
+        {
+            currentRecipe.Name = txtBoxNameOfRecipe.Text;
+            currentRecipe.Instructions = richTxtBoxInstructions.Text;
+            currentRecipe.Category = (FoodCategory)comboBoxCategory.SelectedItem;
+
+            recipeManager.EditRecipe(index, currentRecipe);
+            currentRecipe = new Recipe(MaxIngredients); // Reset currentRecipe
+        }
+
 
         /// <summary>
         /// Event handler for the "Delete" button click event.
@@ -184,7 +187,7 @@ namespace Assignment_AB
             {
                 if (recipe != null)
                 {
-                    string formattedRecipe = string.Format("{0,-5} {1, 20} {2, 35}", recipe.Name, recipe.Category, recipe.GetIngredients().Count(i => i != null));
+                    string formattedRecipe = string.Format("{0,-5} {1, 25} {2, 35}", recipe.Name, recipe.Category, recipe.GetIngredients().Count(i => i != null));
                     lbIngredients.Items.Add(formattedRecipe);
                 }
             }
