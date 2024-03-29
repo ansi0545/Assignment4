@@ -109,13 +109,22 @@
             _recipes[_numOfElems] = null;
         }
 
+        
         /// <summary>
         /// Retrieves an array of recipes.
         /// </summary>
         /// <returns>An array of Recipe objects.</returns>
         public Recipe[] GetRecipes()
         {
-            return _recipes;
+            /// <summary>
+            /// Creates a copy of the Recipe array. This method ensures that the internal array is not exposed directly to external code. Instead, a copy of the array is returned.
+            /// </summary>
+            /// <remarks>
+            /// The copy array will have the same number of elements as the original array.
+            /// </remarks>
+            Recipe[] copy = new Recipe[_numOfElems];
+            Array.Copy(_recipes, copy, _numOfElems);
+            return copy;
         }
     }
 }
