@@ -4,8 +4,8 @@ namespace Assignment_AB
 {
     public partial class FormMain : Form
     {
-        private const int MaxRecipes = 200;
-        private const int MaxIngredients = 50;
+        private const int MaxRecipes = 2;
+        private const int MaxIngredients = 2;
         private RecipeManager recipeManager;
         private Recipe currentRecipe;
 
@@ -19,9 +19,10 @@ namespace Assignment_AB
             currentRecipe = new Recipe(MaxIngredients);
         }
 
+
         /// <summary>
         /// Event handler for the "Add Recipe" button click event.
-        /// Adds a new recipe to the recipe manager based on the input fields.
+        /// Validates the input, adds the recipe, and updates the user interface.
         /// </summary>
         /// <param name="sender">The object that raised the event.</param>
         /// <param name="e">The event arguments.</param>
@@ -29,43 +30,70 @@ namespace Assignment_AB
         {
             try
             {
-                if (!string.IsNullOrEmpty(txtBoxNameOfRecipe.Text))
+                if (ValidateInput())
                 {
-                    currentRecipe.Name = txtBoxNameOfRecipe.Text;
-                    currentRecipe.Instructions = richTxtBoxInstructions.Text; // Potential ArgumentNullException may occur here
-
-                    if (comboBoxCategory.SelectedItem != null)
-                    {
-                        currentRecipe.Category = (FoodCategory)comboBoxCategory.SelectedItem;
-                    }
-                    else
-                    {
-                        MessageBox.Show("Please select a category.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-
-                    recipeManager.AddRecipe(currentRecipe);
-                    currentRecipe = new Recipe(MaxIngredients); // Reset currentRecipe
-
-                    // Clear input fields
-                    txtBoxNameOfRecipe.Clear();
-                    richTxtBoxInstructions.Clear();
-                    comboBoxCategory.SelectedIndex = -1;
-
-                    // Update the UI
-                    UpdateFormMainUI();
+                    AddRecipe();
+                    UpdateUI();
                 }
-                else
-                {
-                    MessageBox.Show("Recipe name cannot be null or empty.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+            }
+            catch (InvalidOperationException ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (ArgumentNullException ex)
             {
                 MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-  
+
+        /// <summary>
+        /// Validates the input for the recipe form.
+        /// </summary>
+        /// <returns>True if the input is valid, otherwise false.</returns>
+        private bool ValidateInput()
+        {
+            if (string.IsNullOrEmpty(txtBoxNameOfRecipe.Text))
+            {
+                MessageBox.Show("Recipe name cannot be null or empty.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            if (comboBoxCategory.SelectedItem == null)
+            {
+                MessageBox.Show("Please select a category.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Adds a new recipe to the recipe manager.
+        /// </summary>
+        private void AddRecipe()
+        {
+            currentRecipe.Name = txtBoxNameOfRecipe.Text;
+            currentRecipe.Instructions = richTxtBoxInstructions.Text;
+            currentRecipe.Category = (FoodCategory)comboBoxCategory.SelectedItem;
+
+            recipeManager.AddRecipe(currentRecipe);
+            currentRecipe = new Recipe(MaxIngredients); // Reset currentRecipe
+        }
+
+        /// <summary>
+        /// Updates the user interface by clearing input fields and updating the main form UI.
+        /// </summary>
+        private void UpdateUI()
+        {
+            // Clear input fields
+            txtBoxNameOfRecipe.Clear();
+            richTxtBoxInstructions.Clear();
+            comboBoxCategory.SelectedIndex = -1;
+
+            // Update the UI
+            UpdateFormMainUI();
+        }
+
         /// <summary>
         /// Event handler for the "Edit Begin" button click event.
         /// Retrieves the selected recipe from the RecipeManager and updates the UI with the selected recipe details.
@@ -87,12 +115,7 @@ namespace Assignment_AB
             }
         }
 
-        /// <summary>
-        /// Event handler for the "Edit Finish" button click event.
-        /// Updates the selected recipe with the edited details and updates the UI.
-        /// </summary>
-        /// <param name="sender">The object that raised the event.</param>
-        /// <param name="e">The event arguments.</param>
+        
         private void btnEditFinish_Click(object sender, EventArgs e)
         {
             try

@@ -64,26 +64,25 @@ namespace Assignment_AB
             set => _category = value;
         }
 
+
         /// <summary>
         /// Adds an ingredient to the recipe.
         /// </summary>
         /// <param name="ingredient">The ingredient to add.</param>
         public void AddIngredient(string ingredient)
         {
-            try
+            int i;
+            for (i = 0; i < _maxIngredients; i++)
             {
-                for (int i = 0; i < _maxIngredients; i++)
+                if (_ingredients[i] == null)
                 {
-                    if (_ingredients[i] == null)
-                    {
-                        _ingredients[i] = ingredient;
-                        break;
-                    }
+                    _ingredients[i] = ingredient;
+                    break;
                 }
             }
-            catch (Exception ex)
+            if (i == _maxIngredients)
             {
-                throw new Exception($"Error while adding ingredient: {ex.Message}", ex);
+                throw new InvalidOperationException("Cannot add more ingredients. Maximum limit reached.");
             }
         }
 

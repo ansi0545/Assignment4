@@ -29,19 +29,19 @@ namespace Assignment_AB
             UpdateGUI();
         }
 
-        
+
         /// <summary>
         /// Gets and returns the updated recipe.
         /// </summary>
         public Recipe UpdatedRecipe => _recipe;
 
-        
+
         private void btnCancel_Click(object sender, EventArgs e)
         {
             Close();
         }
 
-       
+
         /// <summary>
         /// Event handler for the "Add" button click event.
         /// Adds the ingredient from the text box to the recipe and updates the GUI.
@@ -52,15 +52,24 @@ namespace Assignment_AB
         {
             if (!string.IsNullOrEmpty(txtBoxAddIngredients.Text))
             {
-                _recipe.AddIngredient(txtBoxAddIngredients.Text);
-                UpdateGUI();
-
-              
-                txtBoxAddIngredients.Clear();
+                try
+                {
+                    _recipe.AddIngredient(txtBoxAddIngredients.Text);
+                    UpdateGUI();
+                    txtBoxAddIngredients.Clear();
+                }
+                catch (InvalidOperationException ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Ingredient cannot be null or empty.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        
+
         /// <summary>
         /// Event handler for the delete button click event.
         /// Removes the selected ingredient from the recipe and updates the GUI.
@@ -77,7 +86,7 @@ namespace Assignment_AB
             }
         }
 
-       
+
         /// <summary>
         /// Event handler for the "Edit" button click event.
         /// </summary>
@@ -94,7 +103,7 @@ namespace Assignment_AB
             }
         }
 
-        
+
         /// <summary>
         /// Event handler for the click event of the 'Ok' button.
         /// Sets the DialogResult to OK and closes the form.
@@ -107,7 +116,7 @@ namespace Assignment_AB
             Close();
         }
 
-        
+
         /// <summary>
         /// Updates the graphical user interface (GUI) with the ingredients of the recipe.
         /// </summary>
@@ -121,7 +130,7 @@ namespace Assignment_AB
             }
         }
 
-       
+
         /// <summary>
         /// Event handler for the FormIngredients Load event.
         /// </summary>
@@ -132,12 +141,12 @@ namespace Assignment_AB
             UpdateGUI();
             btnEdit.Enabled = false; // Disable the Edit button initially
 
-           
+
             lbFormIngredients.Click += lbFormIngredients_Click;
             groupBoxFormIngredients.MouseDown += groupBoxFormIngredients_MouseDown;
         }
 
-       
+
         /// <summary>
         /// Event handler for the TextChanged event of the richTxtBoxIngredient control.
         /// Enables or disables the btnAdd button based on whether the txtBoxAddIngredients is empty or not.
@@ -149,7 +158,7 @@ namespace Assignment_AB
             btnAdd.Enabled = !string.IsNullOrEmpty(txtBoxAddIngredients.Text);
         }
 
-       
+
         /// <summary>
         /// Event handler for the TextChanged event of the txtBoxAddIngredients TextBox.
         /// Updates the state of the btnEdit button based on the selected item in the ListBox and the text in the TextBox.
@@ -166,7 +175,7 @@ namespace Assignment_AB
         }
 
 
-       
+
         /// <summary>
         /// Event handler for the DoubleClick event of the lbFormIngredients ListBox.
         /// Populates the text box with the selected ingredient and enables the Edit button.
@@ -204,7 +213,7 @@ namespace Assignment_AB
             btnEdit.Enabled = false;
         }
 
-       
+
         /// <summary>
         /// Event handler for the lbFormIngredients Click event.
         /// </summary>

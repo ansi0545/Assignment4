@@ -17,19 +17,23 @@
         /// <summary>
         /// Adds a recipe to the recipe manager.
         /// </summary>
-        /// <param name="recipe">The recipe to add.</param>
-        /// <returns>True if the recipe was added successfully, false otherwise.</returns>
+        /// <param name="recipe">The recipe to be added.</param>
+        /// <returns>True if the recipe was successfully added, otherwise false.</returns>
         public bool AddRecipe(Recipe recipe)
         {
-            if (_numOfElems < _recipes.Length && recipe != null)
+            if (_numOfElems >= _recipes.Length)
             {
-                _recipes[_numOfElems] = recipe;
-                _numOfElems++;
-                return true;
+                throw new InvalidOperationException("Cannot add more recipes. Maximum limit reached.");
             }
-            return false;
+            if (recipe == null)
+            {
+                throw new ArgumentNullException(nameof(recipe), "Recipe cannot be null.");
+            }
+            _recipes[_numOfElems] = recipe;
+            _numOfElems++;
+            return true;
         }
-
+        
         /// <summary>
         /// Edits a recipe at the specified index in the recipe manager.
         /// </summary>
@@ -46,7 +50,7 @@
             return false;
         }
 
-        
+
         /// <summary>
         /// Retrieves the recipe at the specified index.
         /// </summary>
