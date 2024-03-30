@@ -117,6 +117,7 @@
             // 
             // comboBoxCategory
             // 
+            comboBoxCategory.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxCategory.Location = new Point(96, 103);
             comboBoxCategory.Name = "comboBoxCategory";
             comboBoxCategory.Size = new Size(452, 33);
@@ -191,11 +192,12 @@
             // 
             // lbIngredients
             // 
+            lbIngredients.Font = new Font("Courier New", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lbIngredients.FormattingEnabled = true;
-            lbIngredients.ItemHeight = 25;
+            lbIngredients.ItemHeight = 20;
             lbIngredients.Location = new Point(792, 47);
             lbIngredients.Name = "lbIngredients";
-            lbIngredients.Size = new Size(556, 554);
+            lbIngredients.Size = new Size(556, 544);
             lbIngredients.TabIndex = 7;
             lbIngredients.DoubleClick += lbIngredients_DoubleClick;
             // 
