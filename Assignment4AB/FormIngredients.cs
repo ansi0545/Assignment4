@@ -12,9 +12,8 @@ namespace Assignment_AB
         /// Initializes a new instance of the <see cref="FormIngredients"/> class.
         /// </summary>
         public FormIngredients()
+            : this(new Recipe(50)) // Call the other constructor with a new Recipe object
         {
-            InitializeComponent();
-            _recipe = new Recipe(50); // Initialize a new Recipe object
             lbFormIngredients.DoubleClick += lbFormIngredients_DoubleClick; // Add the event handler
         }
 
